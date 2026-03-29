@@ -38,7 +38,6 @@ public class MemberService {
 
         String hash = passwordEncoder.encode(password);
 
-
         Member member = new Member(name, email, hash, phone);
 
         return memberRepository.save(member).getId();

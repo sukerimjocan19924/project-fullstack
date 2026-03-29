@@ -13,7 +13,7 @@ import java.util.List;
 public class TodoController {
 
     @GetMapping
-    public ResponseEntity<List<String>> getAllTodos(){
+    public ResponseEntity<List<String>> getAllTodos() {
         return ResponseEntity.ok(Collections.emptyList());
     }
 }
