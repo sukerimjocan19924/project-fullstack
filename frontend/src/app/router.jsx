@@ -21,9 +21,9 @@ export const router = createBrowserRouter([
     // 보호영역
     path:'/app',
     element:(
-      <ProtectRoute>
+      // <ProtectRoute>
         <ProtectApp/>
-      </ProtectRoute>
+      // </ProtectRoute>
     ),
     children:[
       {

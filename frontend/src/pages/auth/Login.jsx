@@ -25,7 +25,7 @@ const Login = () => {
     }))
   }
 
-  const handleSumit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!form.email.trim()) {
@@ -73,7 +73,7 @@ const Login = () => {
               onClick={handleBack} />
           </nav>
           
-          <form className='auth-form' onSubmit={handleSumit}>
+          <form className='auth-form' onSubmit={handleSubmit}>
             <div className="form-group">
 
               <Input
