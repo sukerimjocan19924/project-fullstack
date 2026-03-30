@@ -2,16 +2,18 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Header.scss'
 import Button from '../ui/Button'
-import { logout } from '@/api/auth.api'
+import { logout as logoutApi } from '@/api/auth.api'
+import { useAuth } from '@/store/auth.store'
 
 const Header = () => {
 
   const navigate = useNavigate()
+  const { logout } = useAuth()
 
   const menus = [
     {
       name: '내 메모',
-      link: '/app/memos'
+      link: '/app/posts/all'
     },
     {
       name: '내 프로필',
@@ -25,7 +27,8 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await logout()
+      await logoutApi()
+      logout()
       navigate("/")
     } catch (error) {
       alert(error.message || '로그아웃 오류')
