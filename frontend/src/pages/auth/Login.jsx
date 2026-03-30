@@ -81,15 +81,13 @@ const Login = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="이메일을 입력하세요"
-              />
+                placeholder="이메일을 입력하세요" />
               <Input
                 name="password"
                 value={form.password}
                 onChange={handleChange}
                 type="password"
-                placeholder="비밀번호를 입력하세요"
-              />
+                placeholder="비밀번호를 입력하세요" />
             </div>
             <div className="auth-btn-wrap">
               <Button text="로그인" type="submit" className="primary" />

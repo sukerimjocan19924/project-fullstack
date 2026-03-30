@@ -17,7 +17,7 @@ export function AuthProvider({children}) {
     setToken(null)
   }
 
-  const value =useMemo(() => ({
+  const value = useMemo(() => ({
     token,
     isAuthed:!!token,
     login,

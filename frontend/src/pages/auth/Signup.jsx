@@ -84,8 +84,8 @@ const Signup = () => {
   return (
     <section className='auth'>
       <div className="inner">
-        <div className="auth-box">
 
+        <div className="auth-box">
           <nav>
             <h2>회원가입</h2>
             <Button text="뒤로가기"
@@ -94,54 +94,53 @@ const Signup = () => {
               onClick={handleBack} />
           </nav>
         </div>
-          <form className='auth-form' onSubmit={handleSubmit}>
-            <div className="form-group">
 
-              <Input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="이름을 입력하세요" />
+        <form className='auth-form' onSubmit={handleSubmit}>
+          <div className="form-group">
+            <Input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="이름을 입력하세요" />
 
-              <Input
-                type="email"
-                name="email"
-                onChange={handleChange}
-                value={form.email}
-                placeholder="이메일을 입력하세요"
-                />
+            <Input
+              type="email"
+              name="email"
+              onChange={handleChange}
+              value={form.email}
+              placeholder="이메일을 입력하세요" />
 
-              <Input
+            <Input
               name="password"
               value={form.password}
               onChange={handleChange}
               type="password"
-              placeholder="비밀번호를 입력하세요"
-              />
-              <Input
+              placeholder="비밀번호를 입력하세요" />
+
+            <Input
               name="passwordConfirm"
               onChange={handleChange}
               value={form.passwordConfirm}
               type="password"
-              placeholder="비밀번호를 다시 입력하세요"
-              />
-              <Input
+              placeholder="비밀번호를 다시 입력하세요" />
+
+            <Input
               name="phone"
               onChange={handleChange}
               value={form.phone}
               type="text"
-              placeholder="전화번호를 입력하세요"
-            />
-            </div>
-             {error && <p className='error-text'> {error}</p>}
+              placeholder="전화번호를 입력하세요" />
+          </div>
+          {error && <p className='error-text'> {error}</p>}
           <div className="auth-btn-wrap">
             <Button 
-            text={isLoading? "가입 중...":"회원가입"} 
-            type="submit" 
-            className="primary" />
+              text={isLoading? "가입 중..." : "회원가입"} 
+              type="submit" 
+              className="primary" />
           </div>
         </form>
+
         <div className="auth-now">
           <span>이미 계정이 있으신가요?</span>
           <Link to="/login">

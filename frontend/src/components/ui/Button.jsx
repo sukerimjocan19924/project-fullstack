@@ -11,6 +11,7 @@ const Button = ({
     const backIconSrc =
         backico == 'wh' ? "/images/arrow-back-wh.svg" :
         backico == 'bh' ? "/images/arrow-back.svg" : null
+        
   return (
     <button onClick={onClick} className={`btn ${className}`}>
       {

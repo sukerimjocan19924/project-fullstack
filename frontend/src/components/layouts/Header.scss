@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+
 header {
     .inner {
         max-width: $container-lg;
@@ -9,12 +10,12 @@ header {
         h1 {
             width: 136px;
         }
+
         .right {
             display: flex;
             align-items: center;
             
-            ul{
-                
+            ul{ 
                 display: flex;
             }
 

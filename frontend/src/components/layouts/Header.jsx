@@ -27,7 +27,6 @@ const Header = () => {
     try {
       await logout()
       navigate("/")
-
     } catch (error) {
       alert(error.message || '로그아웃 오류')
     }

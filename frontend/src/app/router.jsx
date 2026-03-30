@@ -19,16 +19,16 @@ export const router = createBrowserRouter([
     ]
   }, {
     // 보호영역
-    path:'/app',
-    element:(
+    path: '/app',
+    element: (
       // <ProtectRoute>
         <ProtectApp/>
       // </ProtectRoute>
     ),
-    children:[
+    children: [
       {
-        index:true,
-        element:<Dashboard/>
+        index: true,
+        element: <Dashboard/>
       }
     ]
   }
