@@ -3,44 +3,46 @@ import PostList from '@/components/posts/PostList'
 import TagFilterBar from '@/components/posts/TagFilterBar'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './PostPagesAll.scss'
+import { getPosts } from '../../api/post.api'
+import { useNavigate } from 'react-router-dom'
 
 const PostDashboard = () => {
 
     const [selectedTag, setSelectedTag] = useState('전체')
     const [searchKeyword, setSearchKeyword] = useState('')
-    const tags = ['태그1', '태그2', '태그3']
+    const [tags, getTags] = useState(['전체'])
 
-    const posts = [
-        {
-            id: 1,
-            category: 'CASE STUDY',
-            title: 'Korba',
-            content:
-                '사용자 맞춤형 웹 경험을 설계하고 구현한 프로젝트입니다. 반응형 UI와 직관적인 흐름에 집중했습니다.',
-            tags: ['태그1', '태그2'],
-            thumbnail: '/images/sample1.jpg',
-        },
-        {
-            id: 2,
-            category: 'CASE STUDY',
-            title: 'Picnote',
-            content:
-                '이미지와 메모를 함께 관리할 수 있는 서비스 예시입니다. 태그 분류와 목록 구성을 중심으로 제작했습니다.',
-            tags: ['태그2'],
-            thumbnail: '/images/sample2.jpg',
-        },
-        {
-            id: 3,
-            category: 'CASE STUDY',
-            title: 'Memo Archive',
-            content:
-                '저장된 메모를 한곳에서 모아보고 관리할 수 있는 아카이브 페이지입니다. 검색과 필터 확장을 고려했습니다.',
-            tags: ['태그3'],
-            thumbnail: '/images/sample3.jpg',
-        },
-    ]
+    const [posts, setPosts] = useState([])
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const response = await getPosts()
+
+                const rawPosts = Array.isArray(response) ? response : response.data
+
+                const mappedPosts = (rawPosts || []).map((post) => ({
+                    id: post.id,
+                    category: post.category,
+                    title: post.title,
+                    content: post.content,
+                    tags: post.tags || [],
+                    thumbnail: post.imageUrl || ''
+                }))
+
+                setPosts(mappedPosts)
+            } catch (error) {
+                console.error("게시글 조회 실패", error)
+                setPosts([])
+            }
+        }
+        fetchPost()
+    }, [])
+
+
 
     const filteredByTag =
         selectedTag === '전체'
@@ -63,6 +65,7 @@ const PostDashboard = () => {
 
     const handleCreatePost = () => {
         console.log('새 메모 작성')
+        navigate('/app/posts/new')
     }
 
     return (
