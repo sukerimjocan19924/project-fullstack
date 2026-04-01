@@ -29,6 +29,14 @@ public class PostController {
         return postService.findMyPosts(session);
     }
 
+    @GetMapping("/{id}")
+    public PostResponse findById(
+            @PathVariable Long id,
+            HttpSession session
+    ) {
+        return postService.findById(id, session);
+    }
+
     // 게시글 수정
     @PatchMapping("/{id}")
     public PostResponse update(

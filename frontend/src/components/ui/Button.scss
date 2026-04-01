@@ -49,11 +49,20 @@
         }
     }
 
+    &.delete,
     &.cancel {
         background-color: $error;
     }
 
     &.save {
         background-color: $success;
+    }
+
+    &.back.bl {
+        color:$gray-900
+    }
+
+    &.edit {
+        background-color: $warning;
     }
 }

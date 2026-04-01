@@ -71,7 +71,12 @@ const PostDashboard = () => {
     return (
         <section className='page post-section'>
             <div className="inner">
-                <PostHeader onCreate={handleCreatePost} />
+                <PostHeader
+                    onClick={handleCreatePost}
+                    title='게시글을 작성하세요'
+                    showButton
+                    buttonText="작성하기"
+                    buttonClass="primary" />
 
                 <div className="input-post">
                     <Input
