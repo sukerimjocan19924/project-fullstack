@@ -58,7 +58,8 @@
         background-color: $success;
     }
 
-    &.back.bl {
+    &.back,
+    &.bl {
         color:$gray-900
     }
 

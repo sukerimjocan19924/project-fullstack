@@ -6,6 +6,7 @@ const Button = ({
   className,
   onClick,
   backico = '',
+  disabled = false,
   icons }) => {
   
     const backIconSrc =
@@ -13,7 +14,10 @@ const Button = ({
         backico == 'bh' ? "/images/arrow-back.svg" : null
         
   return (
-    <button onClick={onClick} className={`btn ${className}`}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`btn ${className}`}>
       {
         backIconSrc && <img src={backIconSrc} />
       }

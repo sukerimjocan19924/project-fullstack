@@ -5,24 +5,31 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { useEffect, useState } from 'react'
 import './PostPagesAll.scss'
-import { getPosts } from '../../api/post.api'
+import { getPosts } from '@/api/post.api'
 import { useNavigate } from 'react-router-dom'
+import useFilteredPosts from '../../hooks/useFilteredPosts'
 
 const PostDashboard = () => {
 
     const [selectedTag, setSelectedTag] = useState('전체')
     const [searchKeyword, setSearchKeyword] = useState('')
-    const [tags, getTags] = useState(['전체'])
+    const [tags, setTags] = useState(['전체'])
 
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
+    const [fetchError, setFetchError] = useState('')
 
     useEffect(() => {
-        const fetchPost = async () => {
+        setFetchError('')
+        const fetchPosts = async () => {
             try {
                 const response = await getPosts()
-
-                const rawPosts = Array.isArray(response) ? response : response.data
+                console.log(response)
+                const rawPosts = Array.isArray(response)
+                    ? response
+                    : Array.isArray(response?.data)
+                        ? response.data
+                        : []
 
                 const mappedPosts = (rawPosts || []).map((post) => ({
                     id: post.id,
@@ -35,33 +42,14 @@ const PostDashboard = () => {
 
                 setPosts(mappedPosts)
             } catch (error) {
-                console.error("게시글 조회 실패", error)
+                setFetchError(error?.response?.data?.message || error.message || '게시글 조회 실패')
                 setPosts([])
             }
         }
-        fetchPost()
+        fetchPosts()
     }, [])
 
-
-
-    const filteredByTag =
-        selectedTag === '전체'
-            ? posts
-            : posts.filter((post) =>
-                post.tags.includes(selectedTag)
-            )
-
-            
-    const filteredPosts = filteredByTag.filter((post) => {
-        const keyword = searchKeyword.toLowerCase().trim()
-
-        if (!keyword) return true
-
-        return (
-            post.title.toLowerCase().includes(keyword) ||
-            post.content.toLowerCase().includes(keyword)
-        )
-    })
+    const filteredPosts = useFilteredPosts(posts, selectedTag, searchKeyword)
 
     const handleCreatePost = () => {
         console.log('새 메모 작성')
@@ -92,7 +80,7 @@ const PostDashboard = () => {
                       onChangeTag={setSelectedTag} />
                     <Button text="전체 게시글 보기" className="wh" />
                 </div>
-                <PostList posts={filteredPosts} />
+                <PostList posts={filteredPosts.slice(0,3)} />
             </div>
         </section>
     )
