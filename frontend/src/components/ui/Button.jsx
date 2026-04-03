@@ -7,6 +7,7 @@ const Button = ({
   onClick,
   backico = '',
   disabled = false,
+  type = 'button',
   icons }) => {
   
     const backIconSrc =
@@ -15,6 +16,7 @@ const Button = ({
         
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={`btn ${className}`}>
