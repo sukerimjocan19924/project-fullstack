@@ -7,6 +7,7 @@ import Input from '@/components/ui/Input'
 import { CATEGORY_OPTIONS } from '@/constants/category'
 import PostTag from '@/components/posts/PostTag'
 import {createPost} from '@/api/post.api'
+import { uploadImage } from '@/api/file.api'
 
 const PostCreate = () => {
 
@@ -25,6 +26,21 @@ const PostCreate = () => {
   const [isAddingTag, setIsAddingTag] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [imageUrl, setImageUrl] = useState(null)
+
+  const handleUploadImage = async (e) => {
+    const file = e.target.files?.[0]
+
+    if (!file) return
+
+    try {
+      const presigned = await uploadImage(file)
+      setImageUrl(presigned.fileName)
+    } catch (error) {
+      console.error("이미지 업로드 실패", error)
+    } finally {
+      e.target.value = ''
+    }
+  }
 
   const handleSave = async (e) => {
     e.preventDefault()
@@ -45,7 +61,8 @@ const PostCreate = () => {
       const payload = {
         category,
         title,
-        content
+        content,
+        imageUrl
       }
 
       const res = await createPost(payload)
@@ -121,9 +138,20 @@ const PostCreate = () => {
             </div>
 
             <div className="post-upload-card">
-              <div className="post-upload-placeholder">
-                <input type='file' accept='image/*' className='post-uppload-input' />
-                <img src="/images.png" alt="img" />
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="post-upload-placeholder" >
+                <input 
+                  type='file' 
+                  ref={fileInputRef}
+                  accept='image/*'
+                  onChange={handleUploadImage}
+                  className='post-uppload-input' />
+                  {imageUrl?(
+                      <img src={imageUrl} alt="preview" className='post-upload-preview' />
+                    ):(
+                      <img src="/images/add.svg" alt="img" className='post-upload-icon'/>
+                    )}
                 <p className='post-upload-title'>이미지를 업로드 하세요</p>
                 <span className='post-upload-desc'>
                   클릭하거나 파일을 드래그 하여 업로드

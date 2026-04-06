@@ -7,6 +7,7 @@ import Input from '@/components/ui/Input'
 import { CATEGORY_OPTIONS } from '@/constants/category'
 import PostTag from '@/components/posts/PostTag'
 import { getPostById, updatePost } from '@/api/post.api'
+import { uploadImage } from '@/api/file.api'
 
 const PostEdit = () => {
   const { id } = useParams()
@@ -42,6 +43,7 @@ const PostEdit = () => {
       setCategory(post?.category??'DAILY')
       setTitle(post?.title??'')
       setContent(post?.content??'')
+      setImageUrl(post?.imageUrl ?? null)
     } catch (error) {
       console.error('게시글을 불러오지 못했습니다.', error)
       navigate('/app')
@@ -53,6 +55,29 @@ const PostEdit = () => {
   useEffect(() => {
     loadPostDetail()
   }, [])
+
+  const handleUploadImage = async (e) => {
+    const file = e.target.files?.[0]
+
+    if (!file) return
+
+    try {
+      const res = await uploadImage(file)
+      const uploaded = res ?. data ?? res
+
+      setImageUrl(
+        uploaded.fileName ?? 
+        uploaded.fileUrl ??
+        uploaded.imageUrl ??
+        null
+      )
+
+    } catch (error) {
+      console.error("이미지 업로드 실패", error)
+    } finally {
+      e.target.value = ''
+    }
+  }
 
   const handleUpdate = async (e) => {
     e.preventDefault()
@@ -73,7 +98,8 @@ const PostEdit = () => {
       const payload = {
         category,
         title,
-        content
+        content,
+        imageUrl
       }
 
       if (confirm('수정하시겠습니까?')) {
@@ -142,9 +168,20 @@ const PostEdit = () => {
             </div>
 
             <div className="post-upload-card">
-              <div className="post-upload-placeholder">
-                <input type='file' accept='image/*' className='post-uppload-input' />
-                <img src="/images.png" alt="img" />
+              <div 
+                onClick={() => fileInputRef.current?.click()}
+                className="post-upload-placeholder">
+                <input
+                  type='file'
+                  ref={fileInputRef}
+                  onChange={handleUploadImage}
+                  accept='image/*'
+                  className='post-uppload-input' />
+                  {imageUrl?(
+                      <img src={imageUrl} alt="preview" className='post-upload-preview' />
+                    ):(
+                      <img src="/images/add.svg" alt="img" className='post-upload-icon'/>
+                    )}
                 <p className='post-upload-title'>이미지를 업로드 하세요</p>
                 <span className='post-upload-desc'>
                   클릭하거나 파일을 드래그 하여 업로드
