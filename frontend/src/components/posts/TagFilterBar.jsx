@@ -1,6 +1,7 @@
 import React from 'react'
 import PostTag from './PostTag'
 import './PostComponentAll.scss'
+import { createTag, deleteTag, getMyTags } from '@/api/tag.api'
 
 const TagFilterBar = ({tags}) => {
   return (

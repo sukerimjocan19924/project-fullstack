@@ -74,9 +74,9 @@ const PostDetail = () => {
               </p>
 
               <div className="tags">
-                <PostTag tag="tag1"/>
-                <PostTag tag="tag2"/>
-                <PostTag tag="tag3"/>
+                {(post.tags || []).map((tag, i) => (
+                  <PostTag tag={tag} ket={i} />
+                ))}
               </div>
             </div>
             <div className="img-wrap">
