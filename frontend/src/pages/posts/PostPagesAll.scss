@@ -1,10 +1,10 @@
 @use "@/styles/variables" as *;
 
-.post-section{
+.post-section {
     .inner {
         max-width: $container-md;
 
-        .post-header{
+        .post-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -17,6 +17,12 @@
 
             .btn.primary {
                 width: auto;
+            }
+
+            @media screen and (max-width: $container-sm) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: $space-sm;
             }
         }
     }
@@ -35,6 +41,7 @@
 
                 .post-card-title {
                     font-size: $text-xl;
+                    margin: $space-md 0;
                 }
 
                 .post-card-content {

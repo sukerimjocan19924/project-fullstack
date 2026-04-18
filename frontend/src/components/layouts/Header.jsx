@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Header.scss'
 import Button from '../ui/Button'
@@ -9,6 +9,7 @@ const Header = () => {
 
   const navigate = useNavigate()
   const { logout } = useAuth()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const menus = [
     {
@@ -25,10 +26,24 @@ const Header = () => {
     }
   ]
 
+  useEffect(() => {
+    if (!menuOpen) return
+
+    const onkey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+
+    window.addEventListener('keydown', onkey)
+
+    return () => window.removeEventListener('keydown', onkey)
+
+  }, [menuOpen])
+
   const handleLogout = async () => {
     try {
       await logoutApi()
       logout()
+      setMenuOpen(false)
       navigate("/")
     } catch (error) {
       alert(error.message || '로그아웃 오류')
@@ -43,22 +58,46 @@ const Header = () => {
             <img src="/images/logo.svg" alt="logo" />
           </Link>
         </h1>
-        <div className="right">
+        <div className={`right ${menuOpen ? 'is-nav-open' : ''} `}>
 
-          <ul>
-            {menus.map((menu, i) => (
-              <li key={i}>
-                <Button
-                  icons
-                  className="sq"
-                  onClick={() => navigate(menu.link)}
-                  text={menu.name} />
-              </li>
-            ))}
-          </ul>
-          <Button
-            text="로그아웃"
-            onClick={handleLogout} />
+          <button
+            type='button'
+            className='header-menu-toggle'
+            aria-expanded={menuOpen}
+            aria-controls='header-nav'
+            onClick={() => setMenuOpen((v) => !v)} >
+              <span className='header-menu-toggle__label' >메뉴 열기</span>
+              <span className='header-menu-toggle__bar' aria-hidden />
+              <span className='header-menu-toggle__bar' aria-hidden />
+              <span className='header-menu-toggle__bar' aria-hidden />
+          </button>
+
+          <div
+            className="header-nav-backdrop"
+            aria-hidden
+            onClick={() => setMenuOpen(false)} />
+
+          <nav id='header-nav' aria-label='주 메뉴'>
+            <ul>
+              {menus.map((menu, i) => (
+                <li key={i}>
+                  <Button
+                    icons
+                    className="sq"
+                    onClick={() => {
+                      navigate(menu.link)
+                      setMenuOpen(false)
+                    }}
+                    text={menu.name} />
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              text="로그아웃"
+              className="logout-btn"
+              onClick={handleLogout} />
+          </nav>
         </div>
       </div>
     </header>
