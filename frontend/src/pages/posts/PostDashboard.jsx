@@ -73,12 +73,16 @@ const PostDashboard = () => {
                       onChange={(e) => setSearchKeyword(e.target.value)} />
                 </div>
 
-                <div className="tags-wrapper">
+                <div className="tags-wrapper dashboard-mode">
                     <TagFilterBar
                       tags={tags}
                       selectedTag={selectedTag}
-                      onChangeTag={setSelectedTag} />
-                    <Button text="전체 게시글 보기" className="wh" />
+                      onChangeTag={setSelectedTag}
+                       />
+                    {/* <Button
+                      text="전체 게시글 보기"
+                      className="wh"
+                      onClick={() => navigate('/app/posts/all')}/> */}
                 </div>
                 <PostList posts={filteredPosts.slice(0,3)} />
             </div>

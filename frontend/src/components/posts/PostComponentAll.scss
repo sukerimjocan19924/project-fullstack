@@ -1,5 +1,13 @@
 @use "@/styles/variables" as *;
 
+.dashboard-mode .post-tag {
+    cursor: pointer;
+}
+
+.all-mode .post-tag {
+    cursor: pointer;
+}
+
 .tags {
     display: flex;
     gap: $space-sm;
@@ -12,7 +20,6 @@
         background-color: $gray-200;
         padding: $space-sm $space-md;
         gap: $space-sm;
-
         border-radius: $r-lg;
         align-items: center;
 
@@ -31,7 +38,6 @@
         padding: $space-sm $space-md;
         color: $gray-500;
         gap: $space-md;
-
     }
 
     .post-tag-input {
@@ -97,6 +103,8 @@
 
         img {
             height: 100%;
+            width: 100%;
+            object-fit: cover;
         }
     }
 
@@ -106,11 +114,6 @@
         .img-wrap {
             width: 100%;
             min-height: 300px;
-            
-            img {
-                width: 100%;
-                object-fit: cover;
-            }
         }
     }
 }

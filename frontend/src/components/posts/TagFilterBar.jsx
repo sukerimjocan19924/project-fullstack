@@ -3,14 +3,14 @@ import PostTag from './PostTag'
 import './PostComponentAll.scss'
 import { createTag, deleteTag, getMyTags } from '@/api/tag.api'
 
-const TagFilterBar = () => {
+const TagFilterBar = ({ selectedTag, onChangeTag }) => {
 
-  const [tags, setTags] = useState([])
+  const [myTags, setMyTags] = useState([])
 
   const fetchTags = async () => {
     try {
       const res = await getMyTags()
-      setTags(res)
+      setMyTags(res)
     } catch (err) {
       console.error('태그 불러오기 실패:', err)
     }
@@ -20,24 +20,17 @@ const TagFilterBar = () => {
     fetchTags()
   }, [])
 
-  // const handleDeleteTag = async (tagId) => {
-  //   try {
-  //     await deleteTag(tagId)
-  //     await fetchTags()
-  //   } catch (err) {
-  //     console.error('태그 삭제 실패:', err)
-  //   }
-  // }
-
   return (
     <div className='tags'>
       <span>#tag:</span>
-      {tags.map((tag, i) => (
+      {myTags.map((tag, i) => (
 
         <PostTag
           key={tag.id || i}
-          tag={tag.label}/>
-          // onClick={() => handleDeleteTag(tag.id)} />
+          tag={tag.label}
+          className={selectedTag === tag.label ? 'active' : ''}
+          onClick={() => onChangeTag(tag.label)}
+          showDelete={false} />
       ))}
     </div>
   )

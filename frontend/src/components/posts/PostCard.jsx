@@ -12,7 +12,10 @@ const PostCard = ({post}) => {
                 <p className='post-content'>{post.content}</p>
                 <div className="tags">
                     {(post.tags || []).map((tag, i) => (
-                        <PostTag key={i} tag={tag} />
+                        <PostTag
+                          key={i}
+                          tag={tag}
+                          showDelete={false}/>
                     ))}
                 </div>
             </div>

@@ -3,12 +3,16 @@
 .post-section {
     .inner {
         max-width: $container-md;
+        padding-top: $space-lg;
+        min-height: 750px;
 
         .post-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: $space-lg;
+            background-color: $fg;
+            position: relative;
 
             .post-title {
                 font-size: $text-xl;
@@ -53,6 +57,10 @@
 
                 .img-wrap {
                     margin: $space-md 0;
+
+                    img {
+                        width: 100%;
+                    }
                 }
             }
 
@@ -62,7 +70,7 @@
                 justify-content: space-between;
                 // justify-content: right;
                 gap: $space-md;
-                
+
                 .btn {
                     flex: 1;
                 }
@@ -82,6 +90,7 @@
                 background-color: $gray-200;
                 border-radius: $r-xs;
                 padding: $space-sm;
+                transform: translate(0);
             }
 
             ul {
@@ -91,11 +100,17 @@
                 li {
                     cursor: pointer;
                     padding: $space-sm;
+                    color: $gray-300;
+                    font-weight: $fw-bold;
+                    
+                    &.checkpage {
+                        color: $bg;
+                    }
                     
                     &:hover {
                         color: $fg;
-                        font-weight: $fw-bold;
                         background-color: $gray-900;
+                        border-radius: $r-xs;
                     }
                 }
             }

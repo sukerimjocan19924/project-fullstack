@@ -26,17 +26,28 @@ const Header = () => {
     }
   ]
 
+  // 1. 메뉴가 열렸을 때 ESC 키로 닫을 수 있도록 이벤트 등록
   useEffect(() => {
     if (!menuOpen) return
 
     const onkey = (e) => {
-      if (e.key === 'Escape') setMenuOpen(false)
+      if (e.key === 'Escape') setMenuOpen(false)  // ESC 누르면 메뉴 닫기
     }
 
-    window.addEventListener('keydown', onkey)
+    window.addEventListener('keydown', onkey) // ESC 이벤트 등록
 
+    // cleanup: 메뉴가 닫히거나 컴포넌트가 사라질 때 이벤트 제거
     return () => window.removeEventListener('keydown', onkey)
 
+  }, [menuOpen])
+
+  // 2. 메뉴가 열릴 때 body에 클래스 추가해서 스크롤 차단
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add('is-nav-open')  // 메뉴 열리면 스크롤 막기
+    } else {
+      document.body.classList.remove('is-nav-open') // 메뉴 닫히면 스크롤 복원
+    }
   }, [menuOpen])
 
   const handleLogout = async () => {

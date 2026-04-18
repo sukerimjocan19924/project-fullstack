@@ -1,10 +1,18 @@
 @use "@/styles/variables" as *;
 
+body.is-nav-open {
+//   position: fixed;
+//   width: 100%;
+//   overflow-y: scroll;
+
+  overflow: hidden;
+}
+
 header {
-    // position: fixed;
-    position: relative;
+    position: fixed;
     width: 100%;
     z-index: 5;
+    background-color: $bg;
 
     .inner {
         max-width: $container-lg;
@@ -133,7 +141,7 @@ header {
                         }
                     }
 
-                    .header-nav-backdrop{
+                    .header-nav-backdrop {
                         opacity: 1;
                         visibility: visible;
                         pointer-events: auto;
@@ -154,6 +162,15 @@ header {
 
                         .btn {
                             // margin: auto;
+                        }
+                        
+                        .logout-btn {
+                            &:hover {
+                                transform: translateX(0);
+                                // transform: scale(1.01);
+                                color: $purple-2;
+                                border-color: $purple-2;
+                            }
                         }
                     }
                 }

@@ -75,7 +75,10 @@ const PostDetail = () => {
 
               <div className="tags">
                 {(post.tags || []).map((tag, i) => (
-                  <PostTag tag={tag} ket={i} />
+                  <PostTag
+                    tag={tag}
+                    ket={i}
+                    showDelete={false} />
                 ))}
               </div>
             </div>

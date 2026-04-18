@@ -101,16 +101,16 @@ const PostsAll = () => {
             onChange={(e) => setSearchKeyword(e.target.value)} />
         </div>
 
-        <div className="tags-wrapper">
+        <div className="tags-wrapper  all-mode">
           <TagFilterBar
             tags={tags}
             selectedTag={selectedTag}
             onChangeTag={setSelectedTag} />
-          <Button text="전체 게시글 보기" className="wh" />
         </div>
         <PostList posts={currentPosts} />
+      </div>
 
-        <div className="btn-wrap">
+      <div className="btn-wrap">
           <Button
             onClick={handlePrevPage}
             text="<"
@@ -120,7 +120,8 @@ const PostsAll = () => {
             {pageNumbers.map((page) => (
               <li
                 key={page}
-                onClick={() => handlePageClick(page)}>{page}</li>
+                onClick={() => handlePageClick(page)}
+                className={currentPage === page ? 'checkpage' : ''}>{page}</li>
             ))}
           </ul>
           <Button
@@ -129,8 +130,6 @@ const PostsAll = () => {
             disabled ={currentPage==totalPages || totalPages==0}
             className="bl" />
         </div>
-
-      </div>
     </section>
   )
 }
