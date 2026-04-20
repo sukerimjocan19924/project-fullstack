@@ -54,6 +54,12 @@ const PostsAll = () => {
     fetchPosts()
   }, [])
 
+  useEffect(() => {
+    const allTags = ['전체', ...new Set(posts.flatMap(post => post.tags))]
+    setTags(allTags)
+    console.log(allTags)
+  }, [posts])
+
   const filteredPosts = useFilteredPosts(posts, selectedTag, searchKeyword)
 
   useEffect(() => {

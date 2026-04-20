@@ -3,7 +3,7 @@ import PostTag from './PostTag'
 import './PostComponentAll.scss'
 import { createTag, deleteTag, getMyTags } from '@/api/tag.api'
 
-const TagFilterBar = ({ selectedTag, onChangeTag }) => {
+const TagFilterBar = ({ tags, selectedTag, onChangeTag }) => {
 
   const [myTags, setMyTags] = useState([])
 
@@ -23,13 +23,13 @@ const TagFilterBar = ({ selectedTag, onChangeTag }) => {
   return (
     <div className='tags'>
       <span>#tag:</span>
-      {myTags.map((tag, i) => (
+      {tags.map((tag, i) => (
 
         <PostTag
-          key={tag.id || i}
-          tag={tag.label}
-          className={selectedTag === tag.label ? 'active' : ''}
-          onClick={() => onChangeTag(tag.label)}
+          key={i}
+          tag={tag}
+          className={selectedTag === tag ? 'active' : ''}
+          onClick={() => onChangeTag(tag)}
           showDelete={false} />
       ))}
     </div>

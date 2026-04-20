@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { useEffect, useState } from 'react'
 import './PostPagesAll.scss'
-import { getPosts } from '@/api/post.api'
+import { getPosts, updatePost, deletePost } from '@/api/post.api'
 import { useNavigate } from 'react-router-dom'
 import useFilteredPosts from '../../hooks/useFilteredPosts'
 
@@ -49,11 +49,26 @@ const PostDashboard = () => {
         fetchPosts()
     }, [])
 
+    useEffect(() => {
+        const allTags = ['전체', ...new Set(posts.flatMap(post => post.tags))]
+        setTags(allTags)
+        console.log(allTags)
+    }, [posts])
+
     const filteredPosts = useFilteredPosts(posts, selectedTag, searchKeyword)
 
     const handleCreatePost = () => {
         console.log('새 메모 작성')
         navigate('/app/posts/new')
+    }
+
+    const handleUpdatePost = async (updatedPost) => {
+        try {
+            const newPosts = await updatePost(updatedPost.id, updatedPost)
+            setPosts(newPosts)
+        } catch (error) {
+            console.error('게시글 수정 실패', error)
+        }
     }
 
     return (
