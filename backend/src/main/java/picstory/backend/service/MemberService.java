@@ -11,6 +11,8 @@ import picstory.backend.web.dto.MemberResponse;
 import picstory.backend.web.dto.UpdateProfileRequest;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -85,5 +87,16 @@ public class MemberService {
         }
         member.updateProfile(trimmedName, newPhone);
         return MemberResponse.from(member);
+    }
+
+    @Transactional
+    public void hardDelete(Long id) {
+        Member member = findById(id);
+        memberRepository.delete(member); // DB에서 완전 삭제
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 }
