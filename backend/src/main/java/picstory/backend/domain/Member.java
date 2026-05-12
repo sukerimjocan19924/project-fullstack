@@ -52,6 +52,20 @@ public class Member {
         if (this.status == null) this.status = MemberStatus.ACTIVE;
     }
 
+    @PreUpdate
+    public void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public Member(String name, String email, String passwordHash, String phone) {
+        this.name = name;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.phone = phone;
+        this.status = MemberStatus.ACTIVE;
+        this.emailVerified = false;
+    }
+
     public Member(String name, String email, String passwordHash, String phone, Long kakaoId, String provider) {
         this.name = name;
         this.email = email;
@@ -59,22 +73,6 @@ public class Member {
         this.phone = phone;
         this.kakaoId = kakaoId;
         this.provider = provider;
-        this.status = MemberStatus.ACTIVE;
-        this.emailVerified = false;
-    }
-
-    @PreUpdate
-    public void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
-
-
-    public Member(String name, String email, String passwordHash, String phone) {
-        this.name = name;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.phone = phone;
         this.status = MemberStatus.ACTIVE;
         this.emailVerified = false;
     }

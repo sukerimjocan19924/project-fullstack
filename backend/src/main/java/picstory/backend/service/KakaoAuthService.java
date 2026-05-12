@@ -32,10 +32,9 @@ public class KakaoAuthService {
                 .fromUriString("https://kauth.kakao.com/oauth/authorize")
                 .queryParam("client_id", kakaoProperties.getClientId())
                 .queryParam("redirect_uri", kakaoProperties.getRedirectUri())
-                .queryParam("response_uri", kakaoProperties.getRedirectUri())
                 .queryParam("response_type", "code")
                 .build()
-                .toUriString();
+                .toString();
     }
 
     public MemberResponse login(String code, HttpSession session) {
@@ -57,12 +56,12 @@ public class KakaoAuthService {
         body.add("redirect_uri", kakaoProperties.getRedirectUri());
         body.add("code", code);
 
-        if (StringUtils.hasText(kakaoProperties.getClientId())) {
-            body.add("client_secret", kakaoProperties.getClientId());
+        if (StringUtils.hasText(kakaoProperties.getClientSecret())) {
+            body.add("client_secret", kakaoProperties.getClientSecret());
         }
 
         return restClient.post()
-                .uri(kakaoProperties.getTokenUrl())
+                .uri(kakaoProperties.getTokenUri())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(body)
                 .retrieve()
@@ -71,15 +70,15 @@ public class KakaoAuthService {
 
     private KakaoUserResponse requestUserInfo(String accessToken) {
         return restClient.get()
-                .uri(kakaoProperties.getUserInfoUrl())
+                .uri(kakaoProperties.getUserInfoUri())
                 .header("Authorization","Bearer"+accessToken)
                 .retrieve()
                 .body(KakaoUserResponse.class);
     }
 
     private Member createKakaoMember(KakaoUserResponse kakaoUser) {
-        String name = "Kakao" + kakaoUser.getId();
-        String email = "Kakao" + kakaoUser.getId() + "@kakao.com";
+        String name = "kakao" + kakaoUser.getId();
+        String email = "kakao" + kakaoUser.getId() + "@kakao.local";
 
         if (kakaoUser.getKakaoAccount() != null) {
             if (kakaoUser.getKakaoAccount().getEmail() != null) {
