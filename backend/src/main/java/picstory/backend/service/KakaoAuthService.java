@@ -71,7 +71,7 @@ public class KakaoAuthService {
     private KakaoUserResponse requestUserInfo(String accessToken) {
         return restClient.get()
                 .uri(kakaoProperties.getUserInfoUri())
-                .header("Authorization","Bearer"+accessToken)
+                .header("Authorization","Bearer "+accessToken)
                 .retrieve()
                 .body(KakaoUserResponse.class);
     }
