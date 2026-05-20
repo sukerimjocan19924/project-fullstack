@@ -1,0 +1,294 @@
+@use "@/styles/variables" as *;
+
+.setting-card {
+    label {
+        display: flex;
+        align-items: center;
+        font-size: $text-md;
+        font-weight: $fw-medium;
+        margin-bottom: $space-md;
+        color: $gray-400;
+
+        img {
+            margin-right: $space-sm;
+        }
+    }
+
+    .account-card {
+        border: 1px solid $gray-200;
+        border-radius: $r-md;
+        padding: $space-lg;
+
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: $space-md;
+            padding-bottom: $space-md;
+            border-bottom: 1px solid $gray-200;
+
+            .account-title {
+                h3 {
+                    font-size: $text-lg;
+                    font-weight: $fw-bold;
+                    margin-bottom: $space-xs;
+                }
+
+                p {
+                    font-size: $text-sm;
+                    color: $gray-500;
+                }
+            }
+
+            .badge {
+                background-color: $success-bg;
+                color: $success-text;
+                padding: $space-xxs $space-smm;
+                border-radius: $r-pill;
+                font-size: $text-xs;
+                font-weight: $fw-medium;
+                display: inline-block;
+            }
+        }
+
+        .withdrawal-box {
+            border: 1px solid $withdrawal-border;
+            background-color: $withdrawal-bg;
+            border-radius: $r-md;
+            padding: $space-mmd;
+            margin-top: $space-md;
+            display: block;
+            flex-direction: column;
+            justify-content: right;
+
+            .withdrawal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: $space-md;
+
+                .withdrawal-info {
+                    h3 {
+                        color: $withdrawal-text;
+                        font-size: $text-md;
+                        font-weight: $fw-bold;
+                        margin-bottom: $space-xs;
+                    }
+
+                    p {
+                        font-size: $text-sm;
+                        color: $gray-500;
+                    }
+                }
+
+                .danger-badge {
+                    display: flex;
+                    align-items: center;
+                    gap: $space-xxs;
+                    background-color: $bedge-bg;
+                    color: $withdrawal-text;
+                    padding: $space-xxs $space-ssm;
+                    border-radius: $r-pill;
+                    font-size: $text-xs;
+                    font-weight: $fw-medium;
+
+                    img {
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+
+            .btn-wrap {
+                display: flex;
+                justify-content: flex-end;
+
+                .save {
+                    background-color: $withdrawal-text;
+                    color: $fg;
+                    border-radius: $r-xs;
+                    padding: $btn-padding-y2 $btn-padding-x;
+                    font-size: $btn-font-size;
+                    font-weight: $btn-font-weight;
+                    display: flex;
+                    align-items: center;
+                    transition: transform $ease;
+
+                    &:hover {
+                        background-color: darken($withdrawal-text, 5%);
+                        transform: none;
+                    }
+
+                    img,
+                    .btn-icon {
+                        width: 14px;
+                        height: 14px;
+                        margin-right: $btn-icon-move;
+                        flex-shrink: 0;
+                        transition: none;
+                        transform: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .modal-content {
+        background-color: $fg;
+        border-radius: $r-md;
+        box-shadow: $shadow-modal;
+        width: 480px;
+        overflow: hidden;
+        
+        .confirm-top {
+            padding: $space-lg;
+            background-color: $bedge-bg;
+
+            .confirm-title-row {
+                display: flex;
+                align-items: center;
+                gap: $space-ssm;
+                margin-bottom: $space-ssm;
+
+                .img-wrap {
+                    padding: $space-sm;
+                    background-color: $withdrawal-border;
+                    border-radius: $r-xs;
+
+                    img {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                .title-info {
+                    h3 {
+                        font-size: $text-lgg;
+                        font-weight: $fw-bold;
+                        color: $withdrawal-text;
+                        margin-bottom: $space-xxxs;
+                    }
+
+                    p {
+                        font-size: $text-xs;
+                        color: $withdrawal-p;
+                    }
+                }
+            }
+
+            .confirm-desc-box {
+                display: flex;
+                align-items: center;
+                gap: $space-sm;
+                background-color: $bedge-bg2;
+                border-radius: $r-xs;
+                padding: $space-ssm $space-smm;
+
+                img {
+                    width: 14px;
+                    height: 14px;
+                }
+
+                p {
+                    font-size: $text-xs;
+                    color: $withdrawal-text;
+                }
+            }
+        }
+
+        .confirm-body {
+            padding: $space-mmd $space-lg;
+
+            h4 {
+                color: $gray-900;
+                font-size: $text-sm;
+                font-weight: $fw-bold;
+                margin-bottom: $space-sm;
+            }
+
+            p {
+                font-size: $text-xs;
+                color: $gray-400;
+                margin-bottom: $space-sm;
+            }
+
+            .email-input {
+                width: 100%;
+                padding: $space-ssm $space-md;
+                border: 1px solid $withdrawal-border;
+                border-radius: $r-xs;
+                background-color: $gray-100;
+                font-size: $text-sm;
+                margin-bottom: $space-md;
+                color: $gray-400;
+
+                background: url('/images/setting/icon-mail.svg') no-repeat 10px center;
+                background-size: 16px;
+                padding-left: 36px;
+
+                &:focus {
+                    outline: none;
+                    color: $bg;
+                    border-color: rgba($withdrawal-text, 0.5);
+                }
+            }
+
+            .btn-wrap {
+                display: flex;
+                justify-content: end;
+                gap: $space-ssm;
+
+                .cancel {
+                    background-color: $fg;
+                    color: $gray-600;
+                    border-radius: $r-xs;
+                    border: 1px solid $gray-300;                    
+                    padding: $btn-padding-y2 $btn-padding-x;
+                    font-size: $btn-font-size;
+                    font-weight: $btn-font-weight;
+                    transform: none; 
+                }
+                
+                .save {
+                    background-color: $withdrawal-text;
+                    color: $fg;
+                    border-radius: $r-xs;
+                    padding: $btn-padding-y2 $btn-padding-x;
+                    font-size: $btn-font-size;
+                    font-weight: $btn-font-weight;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: $space-sm;
+                    transition: background-color $ease;
+
+                    &:hover {
+                        background-color: darken($withdrawal-text, 5%);
+                        transform: none;
+                    }
+
+                    img,
+                    .btn-icon {
+                        width: 14px;
+                        height: 14px;
+                        margin-right: $btn-icon-move;
+                        transition: none;
+                        transform: none;
+                    }
+                }
+            }
+        }
+    }
+}

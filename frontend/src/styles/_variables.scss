@@ -15,8 +15,16 @@ $card: rgba(255, 255, 255, 0.06);
 
 $error: #ff6b6b;
 $success: #22c55e;
+$success-text: #00442C;
+$success-bg: #ECFDF5;
 $warning: #f59e0b;
 $kakao: #FEE500;
+$withdrawal-bg: #FFF8F8;
+$withdrawal-border: #FFD5D5;
+$bedge-bg: #FFF0F0;
+$bedge-bg2: #FFE4E4;
+$withdrawal-p: #E07070;
+$withdrawal-text: #C0392B;
 
 // =============================
 // Gray Scale
@@ -54,9 +62,14 @@ $r-pill: 999px;
 // Spacing
 // =============================
 
+$space-xxxs: 2px;
 $space-xs: 4px;
+$space-xxs: 6px;
 $space-sm: 8px;
+$space-ssm: 12px;
+$space-smm: 14px;
 $space-md: 16px;
+$space-mmd: 20px;
 $space-lg: 24px;
 $space-xl: 36px;
 // =============================
@@ -65,6 +78,7 @@ $space-xl: 36px;
 
 $shadow-intro: 0 10px 10px rgba(0, 0, 0, 0.747);
 $shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+$shadow-modal: 0 20px 60px rgba(0,0,0,0.15);
 $shadow-sm: 0 8px 10px rgba(0, 0, 0, 0.35);
 
 
@@ -89,6 +103,7 @@ $section-gap: 120px;
 $text-xs: 12px;
 $text-sm: 14px;
 $text-md: 16px;
+$text-lgg: 18px;
 $text-lg: 20px;
 $text-xl: 28px;
 $text-2xl: 54px;
@@ -121,6 +136,7 @@ $z-toast: 2000;
 
 $btn-gap: $space-sm;
 $btn-padding-y: 12px;
+$btn-padding-y2: 10px;
 $btn-padding-x: 22px;
 
 $btn-font-size: $text-sm;

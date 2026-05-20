@@ -8,7 +8,8 @@ const Button = ({
   backico = '',
   disabled = false,
   type = 'button',
-  icons='' }) => {
+  icons='',
+  icon }) => {
 
     const KakaoIcon = () => (
       <svg width="28" height="29" viewBox="0 0 28 29" fill="none">
@@ -31,6 +32,7 @@ const Button = ({
       {
         backIconSrc && <img src={backIconSrc} />
       }
+      {icon && <img src={icon} alt="icon" />}
       {text}
       {icons==true && <img src='/images/arrow.svg' />}
       {icons=='kakao' && <KakaoIcon />}

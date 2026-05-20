@@ -1,0 +1,14 @@
+@use "@/styles/variables" as *;
+
+.setting-section{
+    .inner {
+        max-width: $container-md;
+        padding-top: $space-lg;
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: $space-lg;
+        }
+    }
+}
