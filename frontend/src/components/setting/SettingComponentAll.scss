@@ -14,12 +14,14 @@
         }
     }
 
-    .account-card {
+    .account-card,
+    .version-card {
         border: 1px solid $gray-200;
         border-radius: $r-md;
         padding: $space-lg;
 
-        .account-header {
+        .account-header,
+        .version-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -27,27 +29,40 @@
             padding-bottom: $space-md;
             border-bottom: 1px solid $gray-200;
 
-            .account-title {
-                h3 {
-                    font-size: $text-lg;
-                    font-weight: $fw-bold;
-                    margin-bottom: $space-xs;
-                }
+            h3 {
+                font-size: $text-lg;
+                margin-bottom: $space-xs;
+            }
 
-                p {
-                    font-size: $text-sm;
-                    color: $gray-500;
-                }
+            p {
+                font-size: $text-sm;
+                color: $gray-500;
+            }
+
+            .account-title h3 {
+                font-weight: $fw-bold;
+            }
+
+            .version-title h3 {
+                font-weight: $fw-medium;
             }
 
             .badge {
-                background-color: $success-bg;
-                color: $success-text;
                 padding: $space-xxs $space-smm;
                 border-radius: $r-pill;
                 font-size: $text-xs;
                 font-weight: $fw-medium;
                 display: inline-block;
+            }
+
+            .account-icon .badge {
+                background-color: $success-bg;
+                color: $success-text;
+            }
+
+            .version-icon .badge {
+                background-color: $purple-bg;
+                color: $purple-text;
             }
         }
 
@@ -131,6 +146,102 @@
                 }
             }
         }
+
+        .version-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: $space-md;
+            padding-bottom: $space-md;
+            border-bottom: 1px solid $gray-200;
+
+            .version-left {
+                display: flex;
+                align-items: center;
+                gap: $space-smm;
+
+                .icon-wrap {
+                    background-color: $purple-3 ;
+                    border-radius: $r-md;
+                    padding: $space-smm;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+
+                .version-detail {
+                    p {
+                        font-size: $text-xs;
+                        color: $gray-400;
+                        margin-bottom: $space-xs;
+                    }
+
+                    .version-number {
+                        font-size: 16px;
+                        font-weight: $fw-bold;
+                        color: $bg;
+                    }
+                }
+            }
+
+            .update-btn {
+                background-color: $purple-text;
+                color: $purple-3;
+                border-radius: $r-pill;
+                padding: $btn-padding-y2 $btn-padding-x;
+                font-size: $btn-font-size;
+                font-weight: $btn-font-weight;
+                display: inline-flex;
+                align-items: center;
+                gap: $space-sm;
+                transition: background-color $ease;
+                box-shadow: 0 0 4px rgba($purple-text, 0.3);
+
+                &:hover {
+                    background-color: darken($purple-text, 5%);
+                    box-shadow: 0 0 6px rgba($purple-text, 0.5), 0 0 10px rgba($purple-text, 0.4);
+                    transform: none;
+                }
+
+                img,
+                .btn-icon {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: $btn-icon-move;
+                    transition: none;
+                    transform: none;
+                }
+            }
+        }
+
+        .version-date {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: $text-sm;
+
+            .version-date-left {
+                display: flex;
+                align-items: center;
+                gap: $space-sm;
+                font-weight: $fw-medium;
+
+                img {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                span {
+                    color: $gray-500;
+                }
+            }
+
+            .version-date-right {
+                color: $bg;
+            }
+        }
     }
 }
 
@@ -152,7 +263,7 @@
         box-shadow: $shadow-modal;
         width: 480px;
         overflow: hidden;
-        
+
         .confirm-top {
             padding: $space-lg;
             background-color: $bedge-bg;
@@ -255,13 +366,13 @@
                     background-color: $fg;
                     color: $gray-600;
                     border-radius: $r-xs;
-                    border: 1px solid $gray-300;                    
+                    border: 1px solid $gray-300;
                     padding: $btn-padding-y2 $btn-padding-x;
                     font-size: $btn-font-size;
                     font-weight: $btn-font-weight;
-                    transform: none; 
+                    transform: none;
                 }
-                
+
                 .save {
                     background-color: $withdrawal-text;
                     color: $fg;

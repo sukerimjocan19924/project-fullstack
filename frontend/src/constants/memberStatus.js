@@ -10,7 +10,7 @@ export const STATUS_BADGE = {
   DELETED: '● 삭제된 계정',
 }
 
-const VERSION_STATUS = {
+export const VERSION_STATUS = {
   LATEST: '● 최신 버전',
   LEGACY: '● 구 버전',
   SUSPENDED : '● 정지된 버전',

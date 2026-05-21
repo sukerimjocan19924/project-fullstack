@@ -5,8 +5,8 @@ export const SETTING_ICONS = {
   logout: '/images/setting/icon-log-out.svg',
   trash: '/images/setting/icon-trash.svg',
   mail: '/images/setting/icon-mail.svg',
-
-  memo: '/images/setting/icon-memo.svg',
-  tag: '/images/setting/icon-tag.svg',
+  info: '/images/setting/icon-info.svg',
+  package: '/images/setting/icon-package.svg',
+  cw: '/images/setting/icon-refresh-cw.svg',
   calendar: '/images/setting/icon-calendar.svg',
 }
