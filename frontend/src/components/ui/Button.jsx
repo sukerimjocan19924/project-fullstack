@@ -5,6 +5,8 @@ const Button = ({
   text,
   className,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   backico = '',
   disabled = false,
   type = 'button',
@@ -27,6 +29,8 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       disabled={disabled}
       className={`btn ${className}`}>
       {

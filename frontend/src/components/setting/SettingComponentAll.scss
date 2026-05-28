@@ -15,13 +15,15 @@
     }
 
     .account-card,
-    .version-card {
+    .version-card,
+    .support-card {
         border: 1px solid $gray-200;
         border-radius: $r-md;
         padding: $space-lg;
 
         .account-header,
-        .version-header {
+        .version-header,
+        .support-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -63,6 +65,64 @@
             .version-icon .badge {
                 background-color: $purple-bg;
                 color: $purple-text;
+            }
+        }
+
+        .support-header {
+            flex-direction: column;
+            align-items: start;
+            gap: $space-lg;
+
+            .support-faq {
+                width: 100%;
+                padding: $space-md $space-mmd;
+                background-color: $purple-4;
+                border: 1px solid $gray-300;
+                border-radius: $r-sm;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .support-left {
+                    display: flex;
+                    align-items: center;
+                    gap: $space-smm;
+
+                    .icon-wrap {
+                        background-color: $purple-3 ;
+                        border-radius: $r-sm;
+                        padding: $space-ssm;
+
+                        img {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+
+                    .support-detail {
+                        span {
+                            color: $bg;
+                            font-size: $text-sm;
+                            font-weight: $fw-medium;
+                            margin-bottom: $space-xs;
+                        }
+
+                        p {
+                            color: $gray-400;
+                            font-size: $text-xs;
+                            font-weight: $fw-normal;
+                        }
+                    }
+                }
+
+                a>img {
+                    width: 16px;
+                    height: 16px;
+
+                    &:hover {
+                        transform: scale(1.2);
+                    }
+                }
             }
         }
 
@@ -240,6 +300,153 @@
 
             .version-date-right {
                 color: $bg;
+            }
+        }
+
+        .support-form-header {
+            display: flex;
+            align-items: center;
+            gap: $space-sm;
+            margin-bottom: $space-md;
+
+            img {
+                width: 18px;
+                height: 18px;
+                margin-top: 3px;
+            }
+
+            h3 {
+                font-size: $text-lgg;
+            }
+        }
+
+        .support-options {
+            margin-bottom: $space-md;
+
+            p {
+                font-size: $text-sm;
+                margin-bottom: $space-sm;
+            }
+
+            .support-btn {
+                margin-right: $space-sm;
+                padding: $btn-padding-y $btn-padding-x;
+                font-size: $btn-font-size;
+                font-weight: $btn-font-weight;
+                border-radius: $r-pill;
+                background-color: $gray-200;
+                color: $gray-500;
+                transform: none;
+                transition: background-color $ease;
+                display: inline-flex;
+                align-items: center;
+                gap: $btn-gap;
+
+                img,
+                .btn-icon {
+                    width: 14px;
+                    height: 14px;
+                    margin-right: $btn-icon-move;
+                    margin-top: 3px;
+                    transition: none;
+                    transform: none;
+                }
+
+                &:hover,
+                &.active {
+                    background-color: $purple-text;
+                    color: $purple-3;
+                }
+
+                &:hover {
+                    transform: translateY($btn-hover-y);
+                }
+            }
+        }
+
+        .support-input,
+        .support-textarea {
+            display: flex;
+            flex-direction: column;
+            gap: $space-xs;
+            margin-bottom: $space-md;
+
+            label {
+                font-size: $text-sm;
+                color: $gray-500;
+                margin-bottom: $space-sm;
+            }
+
+            input,
+            textarea {
+                background-color: $gray-50;
+                border: 1px solid $gray-300;
+                border-radius: $r-sm;
+                padding: $space-sm;
+                font-size: $text-sm;
+
+                &::placeholder {
+                    color: $gray-400;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: $purple;
+                    color: $bg;
+                }
+            }
+
+            input {
+                background: url('/images/setting/icon-mail-faq.svg') no-repeat 10px center;
+                background-color: $gray-50;
+                background-size: 14px;
+                padding-left: 36px;
+                line-height: 1.5;
+            }
+
+            textarea {
+                min-height: 120px;
+                resize: vertical;
+            }
+        }
+
+        .support-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .support-note {
+                font-size: $text-xs;
+                color: $gray-400;
+            }
+
+            .submit-btn {
+                background: $purple-text;
+                color: $purple-3;
+                border-radius: $r-pill;
+                padding: $btn-padding-y2 $btn-padding-x;
+                font-size: $btn-font-size;
+                font-weight: $btn-font-weight;
+                display: inline-flex;
+                align-items: center;
+                gap: $btn-gap;
+                transition: background-color $ease;
+                box-shadow: 0 0 4px rgba($purple-text, 0.3);
+
+                &:hover {
+                    background-color: darken($purple-text, 5%);
+                    box-shadow: 0 0 6px rgba($purple-text, 0.5), 0 0 10px rgba($purple-text, 0.4);
+                    transform: none;
+                }
+
+                img,
+                .btn-icon {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: $btn-icon-move;
+                    transition: none;
+                    transform: none;
+                }
             }
         }
     }
