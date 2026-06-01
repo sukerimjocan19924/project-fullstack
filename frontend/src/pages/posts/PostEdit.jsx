@@ -17,6 +17,7 @@ const PostEdit = () => {
   const [category, setCategory] = useState('DAILY')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [myTags, setMyTags] = useState([])
   const [tags, setTags] = useState([])
 
   const fileInputRef = useRef(null)
@@ -31,13 +32,13 @@ const PostEdit = () => {
   }
 
   const loadMyTags = async () => {
-    const res = await getMyTags()
+    const res = await getMyTags({ onlyUsed: true })
     const list = Array.isArray(res)? res :res?.data?? []
 
-    setTags(
+    setMyTags(
       list.map((t) => ({
         id:t.id,
-        label:typeof t ==='string'? t: t.label?? t.name
+        label: t.label ?? t.name
       }))
     )
     
@@ -60,10 +61,15 @@ const PostEdit = () => {
       const postTags = Array.isArray(post?.tags) ? post.tags : []
 
       setTags(
-        postTags.map((t, index) => ({
-          id: t.id ?? `${t.label ?? t.name??t}-${index}`,
-          label: typeof t === 'string' ? t : t.label ?? t.name
-        }))
+        postTags.map((t, index) => {
+          if (typeof t === 'string') {
+            return { id: `tag-${index}`, label: t }
+          }
+          return { 
+            id: t.id ?? `tag-${index}`, 
+            label: t.label ?? t.name ?? t.tag ?? '' 
+          }
+        })
       )
 
     } catch (error) {
@@ -76,6 +82,7 @@ const PostEdit = () => {
 
   useEffect(() => {
     loadPostDetail()
+    loadMyTags()
   }, [id])
 
   const handleAddTag = async () => {
@@ -83,7 +90,14 @@ const PostEdit = () => {
 
     if (!next) return
 
-    if (tags.some((t) => t.label == next)) {
+    if (tags.some(t => t.label === next)) {
+      setTagInput('')
+      return
+    }
+
+    const existingTag = myTags.find(t => t.label === next)
+    if (existingTag) {
+      setTags(prev => [...prev, existingTag])
       setTagInput('')
       return
     }
@@ -92,22 +106,9 @@ const PostEdit = () => {
       setIsAddingTag(true)
 
       const created = await createTag(next)
-      const newTag = created?.data ?? created
-
-      setTags((prev) => {
-        if (
-          prev.some(
-            (t) => t.id===newTag.id || t.label === newTag.label || t.label === next
-          )
-        ) {
-          return prev
-        }
-
-        return [...prev, {
-          id: newTag.id ?? next,
-          label: newTag.label ?? next
-        }]
-      })
+      const newTag = { id: created.id, label: created.label }
+      setTags(prev => [...prev, newTag])
+      setMyTags(prev => [...prev, newTag])
       setTagInput('')
     } catch (error) {
       console.error(error)
@@ -124,6 +125,7 @@ const PostEdit = () => {
         await deleteTag(tag.id)
       }
       setTags((prev) => prev.filter((t) => t.id !== tag.id))
+      await loadMyTags()
     } catch (error) {
       console.error(error)
       const message = error?.response?.data?.message || '태그 삭제 실패'
@@ -240,12 +242,18 @@ const PostEdit = () => {
                   <PostTag tag={t.label} key={t.id} onClick={() => handleRemoveTag(t)} />
                 ))}
                 <input
+                  list="tag-options"
                   type="text"
                   value={tagInput}
                   onKeyDown={handleKeyEnter}
                   onChange={(e) => setTagInput(e.target.value)}
                   className='post-tag-input'
                   placeholder='tag를 자유롭게 입력하세요' />
+                <datalist id="tag-options">
+                  {myTags.map((t) => (
+                    <option key={t.id} value={t.label} />
+                  ))}
+                </datalist>
                 <Button
                   type="button"
                   onClick={handleAddTag}
