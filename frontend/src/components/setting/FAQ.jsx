@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './SettingComponentAll.scss'
 import Button from '../ui/Button'
 import { SETTING_ICONS } from '@/constants/SettingIcon'
@@ -16,7 +16,29 @@ const FAQ = () => {
   const [emailValue, setEmailValue] = useState("")
   const [messageValue, setMessageValue] = useState("")
 
+  useEffect(() => {
+    if (formState.succeeded) {
+      setEmailValue("")
+      setMessageValue("")
+    }
+  }, [formState.succeeded])
+
   const handleSend = async () => {
+    if (!EMAIL_OK.test(emailValue)) {
+      alert("올바른 이메일 주소를 입력하세요.")
+      return
+    }
+
+    if (!messageValue.trim()) {
+      alert("내용을 입력하세요.")
+      return
+    }
+
+    if (messageValue.length > MAX_MESSAGE) {
+      alert(`내용은 ${MAX_MESSAGE}자 이내로 입력하세요.`)
+      return
+    }
+    
     const formData = new FormData()
     formData.set("주제", selected)
     formData.set("이메일", emailValue)
