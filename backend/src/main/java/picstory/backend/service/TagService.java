@@ -49,7 +49,7 @@ public class TagService {
             return List.of();
         }
 
-        return tagRepository.findAllByMember_Id(memberId)
+        return tagRepository.findUsedTagsByUser(memberId)
                 .stream()
                 .map(TagResponse::from)
                 .toList();
@@ -67,9 +67,12 @@ public class TagService {
         Tag tag = tagRepository.findByIdAndMember_Id(tagId, memberId)
                 .orElseThrow(() -> new IllegalArgumentException("tag를 찾을 수 없습니다"));
 
-        for (Post post : postRepository.findByTags_Id(tagId)) {
-            post.getTags().remove(tag);
+        long usageCount = postRepository.findByTags_Id(tagId).size();
+
+        if (usageCount > 0) {
+            throw new IllegalStateException("아직 사용 중인 태그입니다.");
         }
+
         tagRepository.delete(tag);
     }
 

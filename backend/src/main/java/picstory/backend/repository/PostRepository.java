@@ -12,4 +12,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByMember_IdOrderByCreatedAtDesc(Long memberId);
 
     List<Post> findByTags_Id(Long tagId);
+
+    long countByTags_IdAndMember_Id(Long tagId, Long memberId);
 }

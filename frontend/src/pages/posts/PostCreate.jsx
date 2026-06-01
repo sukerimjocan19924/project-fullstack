@@ -17,6 +17,7 @@ const PostCreate = () => {
   const [category, setCategory] = useState("DAILY")
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [myTags, setMyTags] = useState([])
   const [tags, setTags] = useState([])
 
   const fileInputRef = useRef(null)
@@ -26,17 +27,30 @@ const PostCreate = () => {
   const [imageUrl, setImageUrl] = useState(null)
   
   const loadMyTags = async () => {
-    const res = await getMyTags()
+    const res = await getMyTags({ onlyUsed: true })
     const list = Array.isArray(res)? res :res?.data?? []
 
-    setTags(
+    setMyTags(
       list.map((t) => ({
-        id:t.id,
-        label:typeof t ==='string'? t: t.label?? t.name
+        id: t.id,
+        label: t.label ?? t.name
       }))
     )
     
     // console.log(res)
+  }
+
+  const handleTagInputChange = (e) => {
+    const value = e.target.value
+    setTagInput(value)
+
+    const selectedTag = myTags.find(t => t.label === value)
+    if (selectedTag) {
+      if (!tags.some(t => t.id === selectedTag.id)) {
+        setTags(prev => [...prev, selectedTag])
+      }
+      setTagInput('')
+    }
   }
 
   useEffect(() => {
@@ -50,26 +64,26 @@ const PostCreate = () => {
 
     if (!next) return
 
-    if (tags.some((t) => t.label == next)) {
+    if (tags.some((t) => t.label === next)) {
+      setTagInput('')
+      return
+    }
+
+    const existingTag = myTags.find((t) => t.label === next)
+    if (existingTag) {
+      setTags((prev) => [...prev, existingTag])
       setTagInput('')
       return
     }
 
     try {
       setIsAddingTag(true)
-
+      
       const created = await createTag(next)
+      const newTag = { id: created.id, label: created.label }
 
-      setTags((prev) => {
-        if (prev.some((t) => t.id===created.id || t.label===created.label)) {
-          return prev
-        }
-
-        return [...prev, {
-          id: created.id,
-          label: created.label
-        }]
-      })
+      setTags((prev) => [...prev, newTag])
+      setMyTags((prev) => [...prev, newTag])
       setTagInput('')
     } catch (error) {
       console.error(error)
@@ -192,12 +206,18 @@ const PostCreate = () => {
                     key={t.id} />
                 ))}
                 <input
+                  list="tag-options"
                   value={tagInput}
                   onKeyDown={handleKeyEnter}
-                  onChange={(e) => setTagInput(e.target.value)}
+                  onChange={handleTagInputChange}
                   type="text"
                   className='post-tag-input'
                   placeholder='tag를 자유롭게 입력하세요' />
+                <datalist id="tag-options">
+                  {myTags.map((t) => (
+                    <option key={t.id} value={t.label} />
+                  ))}
+                </datalist>
                 <Button
                   type="button"
                   text="+ 태그 추가"
