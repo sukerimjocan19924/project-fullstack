@@ -23,7 +23,12 @@ const FAQ = () => {
     }
   }, [formState.succeeded])
 
-  const handleSend = async () => {
+    const handleSend = async () => {
+    if (!emailValue.trim()) {
+      alert("이메일 주소를 입력해 주세요.")
+      return
+    }
+
     if (!EMAIL_OK.test(emailValue)) {
       alert("올바른 이메일 주소를 입력하세요.")
       return
